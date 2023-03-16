@@ -1,0 +1,56 @@
+{
+  "state": 0,
+  "params": {
+    "curr": "rub",
+    "spp": 0,
+    "version": 1
+  },
+  "data": {
+    "products": [
+      {
+        "id": 10996977,
+        "root": 8306147,
+        "kindId": 0,
+        "subjectId": 6623,
+        "subjectParentId": 3109,
+        "name": "Подарочный набор сладостей в коробке",
+        "brand": "Вкусная помощь",
+        "brandId": 15508,
+        "siteBrandId": 25508,
+        "supplierId": 17786,
+        "sale": 57,
+        "priceU": 59000,
+        "salePriceU": 25300,
+        "logisticsCost": 0,
+        "extended": {
+          "basicSale": 57,
+          "basicPriceU": 25300
+        },
+        "saleConditions": 0,
+        "pics": 6,
+        "rating": 4,
+        "feedbacks": 655,
+        "volume": 16,
+        "colors": [
+          {
+            "name": "розовый",
+            "id": 16761035
+          }
+        ],
+        "promotions": [
+          63484
+        ],
+        "sizes": [
+          {
+            "name": "",
+            "origName": "0",
+            "rank": 0,
+            "optionId": 35149586,
+            "stocks": []
+          }
+        ],
+        "diffPrice": false
+      }
+    ]
+  }
+}
