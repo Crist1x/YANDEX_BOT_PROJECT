@@ -31,10 +31,10 @@ def tovar_generator(tovar_pos):
         total_list.append(data["feedbacks"])
 
     return f"""<b>Название:</b> {total_list[0]}.
-    <b>Цена:</b> {total_list[1]} руб.
-    <b>Ссылка на ВБ:</b> https://www.wildberries.ru/catalog/{total_list[2]}/detail.aspx.
-    <b>Рейтинг:</b> {total_list[3]}/5
-    <b>Количество оценок:</b> {total_list[4]} шт"""
+<b>Цена:</b> {total_list[1]} руб.
+<b>Ссылка на ВБ:</b> https://www.wildberries.ru/catalog/{total_list[2]}/detail.aspx.
+<b>Рейтинг:</b> {total_list[3]}/5
+<b>Количество оценок:</b> {total_list[4]} шт"""
 
 
 @dp.message_handler(Text(equals="🎁Сюрприз🎁"))
@@ -81,7 +81,7 @@ async def ikb_cb_handler(callback: types.CallbackQuery):
         if tovar_pos != 0:
             tovar_pos -= 1
             capt = tovar_generator(tovar_pos)
-            file = InputMedia(media=STUFF[tovar_pos][1], caption=capt)
+            file = InputMedia(media=STUFF[tovar_pos][1], caption=capt, parse_mode="HTML")
             await callback.message.edit_media(file, reply_markup=ikb)
         else:
             await callback.answer("Это первый товар в нашей подборке")
@@ -89,7 +89,7 @@ async def ikb_cb_handler(callback: types.CallbackQuery):
         if tovar_pos != len(STUFF) - 1:
             tovar_pos += 1
             capt = tovar_generator(tovar_pos)
-            file = InputMedia(media=STUFF[tovar_pos][1], caption=capt)
+            file = InputMedia(media=STUFF[tovar_pos][1], caption=capt, parse_mode="HTML")
             await callback.message.edit_media(file, reply_markup=ikb)
         else:
             await callback.answer("Это последний товар в нашей подборке")
