@@ -15,7 +15,18 @@ STUFF = {1: ["https://card.wb.ru/cards/detail?spp=0&regions=80,64,38,4,115,83,33
              "22,71,111&pricemarginCoeff=1.0&reg=0&appType=1&emp=0&locale=ru&lang=ru&curr=rub&couponsGeo=12,3,18,15,"
              "21&dest=-1257786&nm=81957766;77691889;148987287;86927378;64368552;142786769",
              "https://basket-05.wb.ru/vol776/part77691/77691889/images/c246x328/1.jpg"],
-         }
+         3: ["https://card.wb.ru/cards/detail?spp=0&regions=80,64,38,4,115,83,33,68,70,69,30,86,75,40,1,66,31,48,110,"
+             "22,71,111&pricemarginCoeff=1.0&reg=0&appType=1&emp=0&locale=ru&lang=ru&curr=rub&couponsGeo=12,3,18,15,"
+             "21&dest=-1257786&nm=40912361",
+             "https://basket-03.wb.ru/vol409/part40912/40912361/images/c246x328/4.jpg"],
+         4: ["https://card.wb.ru/cards/detail?spp=0&regions=80,64,38,4,115,83,33,68,70,69,30,86,75,40,1,66,31,48,110,"
+             "22,71,111&pricemarginCoeff=1.0&reg=0&appType=1&emp=0&locale=ru&lang=ru&curr=rub&couponsGeo=12,3,18,15,"
+             "21&dest=-1257786&nm=137026978;140854563;145207583",
+             "https://basket-10.wb.ru/vol1408/part140854/140854563/images/big/5.jpg"],
+         5: ["https://card.wb.ru/cards/detail?spp=0&regions=80,64,38,4,115,83,33,68,70,69,30,86,75,40,1,66,31,48,110,"
+             "22,71,111&pricemarginCoeff=1.0&reg=0&appType=1&emp=0&locale=ru&lang=ru&curr=rub&couponsGeo=12,3,18,15,"
+             "21&dest=-1257786&nm=43007173",
+             "https://basket-03.wb.ru/vol430/part43007/43007173/images/big/1.jpg"],}
 
 HELP = """В нашем боте реализованы такие функции как:
 

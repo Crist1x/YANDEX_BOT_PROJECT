@@ -8,48 +8,87 @@
   "data": {
     "products": [
       {
-        "id": 10996977,
-        "root": 8306147,
+        "id": 43007173,
+        "root": 32070659,
         "kindId": 0,
-        "subjectId": 6623,
-        "subjectParentId": 3109,
-        "name": "Подарочный набор сладостей в коробке",
-        "brand": "Вкусная помощь",
-        "brandId": 15508,
-        "siteBrandId": 25508,
-        "supplierId": 17786,
-        "sale": 57,
-        "priceU": 59000,
-        "salePriceU": 25300,
+        "subjectId": 556,
+        "subjectParentId": 49,
+        "name": "Зубные щетки парные для влюбленных 2 шт",
+        "brand": "PollYus",
+        "brandId": 255697,
+        "siteBrandId": 265697,
+        "supplierId": 96929,
+        "sale": 64,
+        "priceU": 64200,
+        "salePriceU": 23100,
         "logisticsCost": 0,
         "extended": {
-          "basicSale": 57,
-          "basicPriceU": 25300
+          "basicSale": 64,
+          "basicPriceU": 23100
         },
         "saleConditions": 0,
-        "pics": 6,
-        "rating": 4,
-        "feedbacks": 655,
-        "volume": 16,
+        "pics": 2,
+        "rating": 5,
+        "feedbacks": 780,
+        "panelPromoId": 157410,
+        "promoTextCard": "ФИНАЛЬНАЯ РАСПРОДАЖА",
+        "promoTextCat": "ФИНАЛЬНАЯ РАСПРОДАЖА",
+        "volume": 4,
         "colors": [
           {
-            "name": "розовый",
-            "id": 16761035
+            "name": "белый",
+            "id": 16777215
           }
         ],
         "promotions": [
-          63484
+          63484,
+          95776,
+          96213,
+          106225,
+          106527,
+          121788,
+          123496,
+          134120,
+          137206,
+          139114,
+          157410
         ],
         "sizes": [
           {
             "name": "",
             "origName": "0",
             "rank": 0,
-            "optionId": 35149586,
-            "stocks": []
+            "optionId": 85866746,
+            "stocks": [
+              {
+                "wh": 117986,
+                "qty": 473,
+                "time1": 2,
+                "time2": 51
+              },
+              {
+                "wh": 120762,
+                "qty": 648,
+                "time1": 4,
+                "time2": 32
+              },
+              {
+                "wh": 130744,
+                "qty": 244,
+                "time1": 3,
+                "time2": 57
+              }
+            ],
+            "time1": 4,
+            "time2": 32,
+            "wh": 120762,
+            "sign": "QA8pCeRnNN//nTSOliqbGrt5Ix8="
           }
         ],
-        "diffPrice": false
+        "diffPrice": false,
+        "time1": 4,
+        "time2": 32,
+        "wh": 120762
       }
     ]
   }
