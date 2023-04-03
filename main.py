@@ -1,29 +1,12 @@
-from aiogram import Bot, Dispatcher, executor, types
-from aiogram.dispatcher.filters import Text
-from aiogram.types.input_media import InputMedia
-from data.config import TOKEN_API, GREETING_STICKER, HELP, DESCR, HEADERS, STUFF
-from data.keyboards import kb_main, ikb_tovars, ikb_progul
-
-import requests
-import json
-import random
+from data.imports import *
 
 bot = Bot(TOKEN_API)
-dp = Dispatcher(bot)
+dp = Dispatcher(bot, storage=MemoryStorage())
 random.shuffle(STUFF)
 tovar_pos = 0
+male_zodiak = ""
+female_zodiak = ""
 
-
-async def on_startup(_):
-    print("Я был запущен")
-
-
-@dp.message_handler(Text(equals="🚗Прогулка🚗"))
-async def progul_func(message: types.Message):
-    await bot.send_message(chat_id=message.from_user.id,
-                           text="Выбери город, в котором ты сейчас находишься:",
-                           reply_markup=ikb_progul)
-    
 
 # Генерация текста товара
 def tovar_generator(tovar_pos):
@@ -45,6 +28,24 @@ def tovar_generator(tovar_pos):
 <b>Ссылка на ВБ:</b> https://www.wildberries.ru/catalog/{total_list[2]}/detail.aspx.
 <b>Рейтинг:</b> {total_list[3]}/5
 <b>Количество оценок:</b> {total_list[4]} шт"""
+
+
+async def on_startup(_):
+    print("Я был запущен")
+
+
+@dp.message_handler(Text(equals="♐️Совместимость♌️"))
+async def progul_func(message: types.Message):
+    await bot.send_message(chat_id=message.from_user.id,
+                           text="Выберите ваш пол:",
+                           reply_markup=ikb_sex)
+
+
+@dp.message_handler(Text(equals="🚗Прогулка🚗"))
+async def progul_func(message: types.Message):
+    await bot.send_message(chat_id=message.from_user.id,
+                           text="Выбери город, в котором ты сейчас находишься:",
+                           reply_markup=ikb_progul)
 
 
 # Кнопка Сюрприз
@@ -87,9 +88,9 @@ async def start_func(message: types.Message):
     await message.delete()
 
 
-# Колбек товаров
-@dp.callback_query_handler()
-async def ikb_tovars_cb_handler(callback: types.CallbackQuery):
+# Колбек кнопки назад (у товара)
+@dp.callback_query_handler(text="back")
+async def tovar0(callback: types.CallbackQuery):
     global tovar_pos
     if callback.data == "back":
         if tovar_pos != 0:
@@ -99,14 +100,84 @@ async def ikb_tovars_cb_handler(callback: types.CallbackQuery):
             await callback.message.edit_media(file, reply_markup=ikb_tovars)
         else:
             await callback.answer("Это первый товар в нашей подборке")
+
+
+# Колбек кнопки вперед (у товара)
+@dp.callback_query_handler(text="forward")
+async def tovar1(callback: types.CallbackQuery):
+    global tovar_pos
+    if tovar_pos != len(STUFF) - 1:
+        tovar_pos += 1
+        capt = tovar_generator(tovar_pos)
+        file = InputMedia(media=STUFF[tovar_pos][1], caption=capt, parse_mode="HTML")
+        await callback.message.edit_media(file, reply_markup=ikb_tovars)
     else:
-        if tovar_pos != len(STUFF) - 1:
-            tovar_pos += 1
-            capt = tovar_generator(tovar_pos)
-            file = InputMedia(media=STUFF[tovar_pos][1], caption=capt, parse_mode="HTML")
-            await callback.message.edit_media(file, reply_markup=ikb_tovars)
-        else:
-            await callback.answer("Это последний товар в нашей подборке")
+        await callback.answer("Это последний товар в нашей подборке")
+
+
+# Колбек москвы (у прогулки)
+@dp.callback_query_handler(text="moscow")
+async def moscow_city(callback: types.CallbackQuery):
+    await callback.answer("asd")
+
+
+# Колбек питера (у прогулки)
+@dp.callback_query_handler(text="saint")
+async def saint_city(callback: types.CallbackQuery):
+    await callback.answer("asd")
+
+
+# Колбек мужского пола (совместимость)
+@dp.callback_query_handler(text="male")
+async def male_func(callback: types.CallbackQuery):
+    await callback.answer("Выберите ваш знак зодиака")
+    await Male.male.set()
+
+
+# Колбек женского пола (совместимость)
+@dp.callback_query_handler(text="female")
+async def female_func(callback: types.CallbackQuery):
+    await callback.answer("Выберите ваш знак зодиака")
+    await Female.fem.set()
+
+
+# Обработчик машины состояний
+@dp.message_handler(state=Male.male)
+async def fem_zod(message: types.Message, state: FSMContext):
+    await state.update_data(male_zod=message.text)
+    await message.answer("Отлично! Теперь введите зодиак вашего партнера.")
+    await Male.next()
+
+
+# Обработчик машины состояний
+@dp.message_handler(state=Male.fem)
+async def get_address(message: types.Message, state: FSMContext):
+    global male_zodiak, female_zodiak
+    await state.update_data(female_zod=message.text)
+    data = await state.get_data()
+    male_zodiak, female_zodiak = data["male_zod"], data["female_zod"]
+    await message.answer("Подождите, мы подсчитываем совместимость💋")
+    await state.finish()
+
+
+# Обработчик машины состояний
+@dp.message_handler(state=Female.fem)
+async def fem_zod(message: types.Message, state: FSMContext):
+    await state.update_data(female_zod=message.text)
+    await message.answer("Отлично! Теперь введите зодиак вашего партнера.")
+    await Female.next()
+
+
+# Обработчик машины состояний
+@dp.message_handler(state=Female.male)
+async def get_address(message: types.Message, state: FSMContext):
+    global male_zodiak, female_zodiak
+    await state.update_data(male_zod=message.text)
+    data = await state.get_data()
+    male_zodiak, female_zodiak = data["male_zod"], data["female_zod"]
+    await message.answer("Подождите, мы подсчитываем совместимость💋")
+
+    await state.finish()
 
 
 if __name__ == "__main__":
