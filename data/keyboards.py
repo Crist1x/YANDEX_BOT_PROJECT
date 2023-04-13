@@ -4,10 +4,10 @@ from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 kb_main = ReplyKeyboardMarkup(resize_keyboard=True)
 b1 = KeyboardButton("Помощь")
 b2 = KeyboardButton("Описание")
-b3 = KeyboardButton("🎁Сюрприз🎁")
-b4 = KeyboardButton("🚗Прогулка🚗")
-b5 = KeyboardButton("♐️Совместимость♌️")
-b6 = KeyboardButton("🍿Фильмы🎥")
+b3 = KeyboardButton("🎁 Сюрприз 🎁")
+b4 = KeyboardButton("🚗 Прогулка 🚗")
+b5 = KeyboardButton("♐️ Совместимость ♌️")
+b6 = KeyboardButton("💌 Комплимент 🎀")
 kb_main.add(b1, b2).add(b3, b4).add(b5, b6)
 
 
@@ -23,3 +23,7 @@ ikb_sex = InlineKeyboardMarkup(inline_keyboard=[
     [InlineKeyboardButton("🚹", callback_data="male"), InlineKeyboardButton("🚺", callback_data="female")]
 ])
 
+
+ikb_komp = InlineKeyboardMarkup(inline_keyboard=[
+    [InlineKeyboardButton("🚹", callback_data="komp_male"), InlineKeyboardButton("🚺", callback_data="komp_female")]
+])

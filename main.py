@@ -1,3 +1,5 @@
+import random
+
 from data.imports import *
 
 bot = Bot(TOKEN_API)
@@ -30,6 +32,7 @@ def tovar_generator(tovar_pos):
 <b>Количество оценок:</b> {total_list[4]} шт"""
 
 
+# Генерация текста гороскопа
 def goroscop(zodf, zodm):
     try:
         data = requests.get(f"https://my-calend.ru/zodiak-sovmestimost/zhenshchina-{ZODIAKS[zodf]}-muzhchina-"
@@ -51,26 +54,56 @@ def goroscop(zodf, zodm):
                "знаков задиака. Попробуйте еще раз💗 "
 
 
+# Генерация комплимента девушке
+def female_kompliment(komp_index):
+    sqlite_connection = sqlite3.connect('db/database.db')
+    cursor = sqlite_connection.cursor()
+    sqlite_select_query = """SELECT * from Compliments"""
+    cursor.execute(sqlite_select_query)
+    records = cursor.fetchall()
+    return records[komp_index][1]
+
+
+# Генерация комплимента парню
+def male_kompliment(komp_index):
+    sqlite_connection = sqlite3.connect('db/database.db')
+    cursor = sqlite_connection.cursor()
+    sqlite_select_query = """SELECT * from Compliments"""
+    cursor.execute(sqlite_select_query)
+    records = cursor.fetchall()
+    return records[komp_index][2]
+
+
 async def on_startup(_):
     print("Я был запущен")
 
 
-@dp.message_handler(Text(equals="♐️Совместимость♌️"))
+# Кнопка Совместимость
+@dp.message_handler(Text(equals="♐️ Совместимость ♌️"))
 async def progul_func(message: types.Message):
     await bot.send_message(chat_id=message.from_user.id,
                            text="Выберите ваш пол:",
                            reply_markup=ikb_sex)
 
 
-@dp.message_handler(Text(equals="🚗Прогулка🚗"))
+# Кнопка Прогулка
+@dp.message_handler(Text(equals="💌 Комплимент 🎀"))
 async def progul_func(message: types.Message):
     await bot.send_message(chat_id=message.from_user.id,
-                           text="Выбери город, в котором ты сейчас находишься:",
+                           text="Выбери пол человека, для которого хотите получить комплимент🌹",
+                           reply_markup=ikb_komp)
+
+
+# Кнопка Прогулка
+@dp.message_handler(Text(equals="🚗 Прогулка 🚗"))
+async def progul_func(message: types.Message):
+    await bot.send_message(chat_id=message.from_user.id,
+                           text="Выбери город, в котором ты сейчас находишься🏢",
                            reply_markup=ikb_progul)
 
 
 # Кнопка Сюрприз
-@dp.message_handler(Text(equals="🎁Сюрприз🎁"))
+@dp.message_handler(Text(equals="🎁 Сюрприз 🎁"))
 async def surp_func(message: types.Message):
     global tovar_pos
     tovar = tovar_generator(tovar_pos)
@@ -146,6 +179,22 @@ async def moscow_city(callback: types.CallbackQuery):
 @dp.callback_query_handler(text="saint")
 async def saint_city(callback: types.CallbackQuery):
     await callback.answer("asd")
+
+
+# Колбек комплимента для мужчины
+@dp.callback_query_handler(text="komp_male")
+async def saint_city(callback: types.CallbackQuery):
+    await bot.send_message(chat_id=callback.from_user.id,
+                           text=male_kompliment(random.randint(1, 30)))
+    await callback.message.delete()
+
+
+# Колбек комплимента для девушки
+@dp.callback_query_handler(text="komp_female")
+async def saint_city(callback: types.CallbackQuery):
+    await bot.send_message(chat_id=callback.from_user.id,
+                           text=female_kompliment(random.randint(1, 30)))
+    await callback.message.delete()
 
 
 # Колбек мужского пола (совместимость)
