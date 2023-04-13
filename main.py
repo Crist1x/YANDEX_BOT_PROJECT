@@ -30,6 +30,27 @@ def tovar_generator(tovar_pos):
 <b>Количество оценок:</b> {total_list[4]} шт"""
 
 
+def goroscop(zodf, zodm):
+    try:
+        data = requests.get(f"https://my-calend.ru/zodiak-sovmestimost/zhenshchina-{ZODIAKS[zodf]}-muzhchina-"
+                            f"{ZODIAKS[zodm]}", headers=HEADERS).content.decode("utf-8")
+        soup = bs(data, "html.parser")
+        main_info = soup.find_all("h2")
+        total = ""
+        for obj in main_info:
+            if main_info.index(obj) == 0:
+                total += f"❤️‍🔥 {obj.text} ❤️‍🔥\n"
+            elif main_info.index(obj) == 1:
+                total += f"👥 {obj.text} 👥\n"
+            else:
+                total += f"💵 {obj.text} 💵\n"
+        return total
+
+    except Exception as e:
+        return "Мы не смогли найти информацию про вашу совместимость. Скорее всего вы указали неправильно один из " \
+               "знаков задиака. Попробуйте еще раз💗 "
+
+
 async def on_startup(_):
     print("Я был запущен")
 
@@ -130,14 +151,14 @@ async def saint_city(callback: types.CallbackQuery):
 # Колбек мужского пола (совместимость)
 @dp.callback_query_handler(text="male")
 async def male_func(callback: types.CallbackQuery):
-    await callback.answer("Выберите ваш знак зодиака")
+    await callback.answer("Напишите ваш знак зодиака")
     await Male.male.set()
 
 
 # Колбек женского пола (совместимость)
 @dp.callback_query_handler(text="female")
 async def female_func(callback: types.CallbackQuery):
-    await callback.answer("Выберите ваш знак зодиака")
+    await callback.answer("Напишите ваш знак зодиака")
     await Female.fem.set()
 
 
@@ -155,8 +176,11 @@ async def get_address(message: types.Message, state: FSMContext):
     global male_zodiak, female_zodiak
     await state.update_data(female_zod=message.text)
     data = await state.get_data()
-    male_zodiak, female_zodiak = data["male_zod"], data["female_zod"]
+    male_zodiak, female_zodiak = data["male_zod"].lower(), data["female_zod"].lower()
     await message.answer("Подождите, мы подсчитываем совместимость💋")
+    time.sleep(1)
+    await bot.send_message(chat_id=message.chat.id,
+                           text=goroscop(female_zodiak, male_zodiak))
     await state.finish()
 
 
@@ -174,9 +198,11 @@ async def get_address(message: types.Message, state: FSMContext):
     global male_zodiak, female_zodiak
     await state.update_data(male_zod=message.text)
     data = await state.get_data()
-    male_zodiak, female_zodiak = data["male_zod"], data["female_zod"]
+    male_zodiak, female_zodiak = data["male_zod"].lower(), data["female_zod"].lower()
     await message.answer("Подождите, мы подсчитываем совместимость💋")
-
+    time.sleep(1)
+    await bot.send_message(chat_id=message.chat.id,
+                           text=goroscop(female_zodiak, male_zodiak))
     await state.finish()
 
 

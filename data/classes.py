@@ -9,3 +9,4 @@ class Female(StatesGroup):
 class Male(StatesGroup):
     male = State()
     fem = State()
+

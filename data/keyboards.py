@@ -22,3 +22,4 @@ ikb_progul = InlineKeyboardMarkup(inline_keyboard=[
 ikb_sex = InlineKeyboardMarkup(inline_keyboard=[
     [InlineKeyboardButton("🚹", callback_data="male"), InlineKeyboardButton("🚺", callback_data="female")]
 ])
+
