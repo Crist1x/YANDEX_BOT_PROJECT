@@ -8,69 +8,124 @@
   "data": {
     "products": [
       {
-        "id": 10996977,
-        "root": 8306147,
+        "id": 59181453,
+        "root": 44573875,
         "kindId": 0,
-        "subjectId": 2879,
-        "subjectParentId": 3109,
-        "name": "Подарочный набор сладостей",
-        "brand": "Вкусная помощь",
-        "brandId": 15508,
-        "siteBrandId": 25508,
-        "supplierId": 17786,
-        "sale": 60,
-        "priceU": 59000,
-        "salePriceU": 23600,
+        "subjectId": 120,
+        "subjectParentId": 7,
+        "name": "The Big Romantic Theory игра-квест для пары для влюбленных",
+        "brand": "na_pomni",
+        "brandId": 863858,
+        "siteBrandId": 873858,
+        "supplierId": 51340,
+        "sale": 75,
+        "priceU": 599000,
+        "salePriceU": 149700,
         "logisticsCost": 0,
         "extended": {
-          "basicSale": 60,
-          "basicPriceU": 23600
+          "basicSale": 75,
+          "basicPriceU": 149700
         },
         "saleConditions": 0,
         "pics": 6,
-        "rating": 4,
-        "feedbacks": 678,
-        "panelPromoId": 158818,
-        "promoTextCard": "СКИДКОМАНИЯ",
-        "promoTextCat": "СКИДКОМАНИЯ",
-        "volume": 16,
-        "colors": [],
+        "rating": 5,
+        "feedbacks": 603,
+        "volume": 14,
+        "colors": [
+          {
+            "name": "розовый",
+            "id": 16761035
+          },
+          {
+            "name": "синий",
+            "id": 255
+          },
+          {
+            "name": "черный",
+            "id": 0
+          },
+          {
+            "name": "белый",
+            "id": 16777215
+          },
+          {
+            "name": "красный",
+            "id": 16711680
+          }
+        ],
         "promotions": [
           63484,
-          81860,
-          91167,
-          110140,
+          71630,
+          104304,
+          123496,
+          128385,
+          128448,
           137206,
-          138971,
-          149770,
-          151793,
-          158688,
-          158818
+          139030,
+          149576,
+          153032,
+          153081
         ],
         "sizes": [
           {
             "name": "",
             "origName": "0",
             "rank": 0,
-            "optionId": 35149586,
+            "optionId": 106190393,
             "stocks": [
               {
-                "wh": 206968,
-                "qty": 677,
+                "wh": 507,
+                "qty": 526,
+                "time1": 4,
+                "time2": 20
+              },
+              {
+                "wh": 2737,
+                "qty": 1,
                 "time1": 3,
-                "time2": 23
+                "time2": 45
+              },
+              {
+                "wh": 117986,
+                "qty": 54,
+                "time1": 3,
+                "time2": 47
+              },
+              {
+                "wh": 120762,
+                "qty": 1,
+                "time1": 4,
+                "time2": 29
+              },
+              {
+                "wh": 130744,
+                "qty": 117,
+                "time1": 3,
+                "time2": 56
+              },
+              {
+                "wh": 159402,
+                "qty": 108,
+                "time1": 3,
+                "time2": 42
+              },
+              {
+                "wh": 206236,
+                "qty": 1,
+                "time1": 2,
+                "time2": 31
               }
             ],
-            "time1": 3,
-            "time2": 23,
-            "wh": 206968,
-            "sign": "+yEz+ae3WphkGEf86cIonW4HRhk="
+            "time1": 4,
+            "time2": 20,
+            "wh": 507,
+            "sign": "qaXDyU/DAD3vPEUgPRR2dO6UvZg="
           }
         ],
         "diffPrice": false,
-        "time1": 3,
-        "time2": 23,
-        "wh": 206968
+        "time1": 4,
+        "time2": 20,
+        "wh": 507
       }
     ]
   }

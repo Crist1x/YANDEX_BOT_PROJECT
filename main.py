@@ -9,6 +9,7 @@ male_zodiak = ""
 female_zodiak = ""
 id_walk = [a for a in range(1, 18)]
 index_pos_walk = 0
+fl = 0
 
 
 # Генерация текста товара
@@ -195,9 +196,10 @@ async def moscow_city(callback: types.CallbackQuery):
                          reply_markup=ikb_sights)
     await callback.message.delete()
 
+
 # Колбек Москвы на нажатие back_sight
 @dp.callback_query_handler(text="back_sight")
-async def saint_city(callback: types.CallbackQuery):
+async def mos_back_sight(callback: types.CallbackQuery):
     global id_walk, index_pos_walk
     if index_pos_walk - 1 >= 0:
         index_pos_walk -= 1
@@ -213,7 +215,7 @@ async def saint_city(callback: types.CallbackQuery):
 
 # Колбек Москвы на нажатие forward_sight
 @dp.callback_query_handler(text="forward_sight")
-async def saint_city(callback: types.CallbackQuery):
+async def mos_forward_sight(callback: types.CallbackQuery):
     global id_walk, index_pos_walk
     if index_pos_walk + 1 <= 16:
         index_pos_walk += 1
@@ -227,10 +229,28 @@ async def saint_city(callback: types.CallbackQuery):
         await callback.answer("Это последнее место в нашей подборке")
 
 
+# Колбек геопозиции
+@dp.callback_query_handler(text="geo")
+async def geoposition(callback: types.CallbackQuery):
+    global fl
+    place_from_bd = all_for_walk(id_walk[index_pos_walk])
+    lat = place_from_bd[0][3]
+    long = place_from_bd[0][4]
+    await bot.send_location(chat_id=callback.from_user.id,
+                            latitude=lat,
+                            longitude=long,
+                            reply_markup=ikb_rem)
+
+
+@dp.callback_query_handler(text="rem")
+async def saint_city(callback: types.CallbackQuery):
+    await callback.message.delete()
+
+
 # Колбек питера (у прогулки)
 @dp.callback_query_handler(text="saint")
 async def saint_city(callback: types.CallbackQuery):
-    await callback.answer("asd")
+    await callback.answer("Мы ссовсем скоро реализуем эту функцию")
 
 
 # Колбек комплимента для мужчины

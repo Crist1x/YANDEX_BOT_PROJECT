@@ -15,7 +15,7 @@ ikb_tovars = InlineKeyboardMarkup(inline_keyboard=[
     [InlineKeyboardButton("⏪", callback_data="back"), InlineKeyboardButton("⏩", callback_data="forward")]
 ])
 
-ikb_sights = InlineKeyboardMarkup(inline_keyboard=[
+ikb_sights = InlineKeyboardMarkup(inline_keyboard=[[InlineKeyboardButton("🗺Показать на карте🗺", callback_data="geo")],
     [InlineKeyboardButton("⏪", callback_data="back_sight"), InlineKeyboardButton("⏩", callback_data="forward_sight")]
 ])
 
@@ -30,4 +30,8 @@ ikb_sex = InlineKeyboardMarkup(inline_keyboard=[
 
 ikb_komp = InlineKeyboardMarkup(inline_keyboard=[
     [InlineKeyboardButton("🚹", callback_data="komp_male"), InlineKeyboardButton("🚺", callback_data="komp_female")]
+])
+
+ikb_rem = InlineKeyboardMarkup(inline_keyboard=[
+    [InlineKeyboardButton("❌Удалить Сообщение❌", callback_data="rem")]
 ])
