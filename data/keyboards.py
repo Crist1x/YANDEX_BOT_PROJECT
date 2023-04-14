@@ -15,6 +15,10 @@ ikb_tovars = InlineKeyboardMarkup(inline_keyboard=[
     [InlineKeyboardButton("⏪", callback_data="back"), InlineKeyboardButton("⏩", callback_data="forward")]
 ])
 
+ikb_sights = InlineKeyboardMarkup(inline_keyboard=[
+    [InlineKeyboardButton("⏪", callback_data="back_sight"), InlineKeyboardButton("⏩", callback_data="forward_sight")]
+])
+
 ikb_progul = InlineKeyboardMarkup(inline_keyboard=[
     [InlineKeyboardButton("Москва", callback_data="moscow"), InlineKeyboardButton("СПБ", callback_data="saint")]
 ])

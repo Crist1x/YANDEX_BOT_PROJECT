@@ -4,10 +4,11 @@ from data.imports import *
 
 bot = Bot(TOKEN_API)
 dp = Dispatcher(bot, storage=MemoryStorage())
-random.shuffle(STUFF)
 tovar_pos = 0
 male_zodiak = ""
 female_zodiak = ""
+id_walk = [a for a in range(1, 18)]
+index_pos_walk = 0
 
 
 # Генерация текста товара
@@ -74,6 +75,14 @@ def male_kompliment(komp_index):
     return records[komp_index][2]
 
 
+# Генерация всего на свете для прогулки
+def all_for_walk(walker_id):
+    sqlite_connection = sqlite3.connect('db/database.db')
+    cursor = sqlite_connection.cursor()
+    result = cursor.execute("""SELECT * FROM Sights WHERE id = ?""", (walker_id,)).fetchall()
+    return result
+
+
 async def on_startup(_):
     print("Я был запущен")
 
@@ -106,6 +115,7 @@ async def progul_func(message: types.Message):
 @dp.message_handler(Text(equals="🎁 Сюрприз 🎁"))
 async def surp_func(message: types.Message):
     global tovar_pos
+    random.shuffle(STUFF)
     tovar = tovar_generator(tovar_pos)
     await bot.send_photo(chat_id=message.chat.id,
                          photo=STUFF[tovar_pos][1],
@@ -172,7 +182,49 @@ async def tovar1(callback: types.CallbackQuery):
 # Колбек москвы (у прогулки)
 @dp.callback_query_handler(text="moscow")
 async def moscow_city(callback: types.CallbackQuery):
-    await callback.answer("asd")
+    global id_walk, index_pos_walk
+    random.shuffle(id_walk)
+    place_from_bd = all_for_walk(id_walk[index_pos_walk])
+    capt = f"""<b>{place_from_bd[0][1]}</b>
+{place_from_bd[0][2]}
+Подробнее: {place_from_bd[0][6]}"""
+    await bot.send_photo(chat_id=callback.from_user.id,
+                         photo=place_from_bd[0][5],
+                         caption=capt,
+                         parse_mode="HTML",
+                         reply_markup=ikb_sights)
+    await callback.message.delete()
+
+# Колбек Москвы на нажатие back_sight
+@dp.callback_query_handler(text="back_sight")
+async def saint_city(callback: types.CallbackQuery):
+    global id_walk, index_pos_walk
+    if index_pos_walk - 1 >= 0:
+        index_pos_walk -= 1
+        place_from_bd = all_for_walk(id_walk[index_pos_walk])
+        capt = f"""<b>{place_from_bd[0][1]}</b>
+    {place_from_bd[0][2]}
+    Подробнее: {place_from_bd[0][6]}"""
+        file = InputMedia(media=place_from_bd[0][5], caption=capt, parse_mode="HTML")
+        await callback.message.edit_media(file, reply_markup=ikb_sights)
+    else:
+        await callback.answer("Это первое место в нашей подборке")
+
+
+# Колбек Москвы на нажатие forward_sight
+@dp.callback_query_handler(text="forward_sight")
+async def saint_city(callback: types.CallbackQuery):
+    global id_walk, index_pos_walk
+    if index_pos_walk + 1 <= 16:
+        index_pos_walk += 1
+        place_from_bd = all_for_walk(id_walk[index_pos_walk])
+        capt = f"""<b>{place_from_bd[0][1]}</b>
+    {place_from_bd[0][2]}
+    Подробнее: {place_from_bd[0][6]}"""
+        file = InputMedia(media=place_from_bd[0][5], caption=capt, parse_mode="HTML")
+        await callback.message.edit_media(file, reply_markup=ikb_sights)
+    else:
+        await callback.answer("Это последнее место в нашей подборке")
 
 
 # Колбек питера (у прогулки)
