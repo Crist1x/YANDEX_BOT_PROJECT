@@ -19,6 +19,10 @@ ikb_sights = InlineKeyboardMarkup(inline_keyboard=[[InlineKeyboardButton("🗺П
     [InlineKeyboardButton("⏪", callback_data="back_sight"), InlineKeyboardButton("⏩", callback_data="forward_sight")]
 ])
 
+ikb_sights_SPB = InlineKeyboardMarkup(inline_keyboard=[[InlineKeyboardButton("🗺Показать на карте🗺", callback_data="geo_SPB")],
+    [InlineKeyboardButton("⏪", callback_data="back_sight_SPB"), InlineKeyboardButton("⏩", callback_data="forward_sight_SPB")]
+])
+
 ikb_progul = InlineKeyboardMarkup(inline_keyboard=[
     [InlineKeyboardButton("Москва", callback_data="moscow"), InlineKeyboardButton("СПБ", callback_data="saint")]
 ])

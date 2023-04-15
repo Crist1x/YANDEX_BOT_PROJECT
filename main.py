@@ -84,6 +84,13 @@ def all_for_walk(walker_id):
     return result
 
 
+def all_for_walk_SPB(walker_id):
+    sqlite_connection = sqlite3.connect('db/database.db')
+    cursor = sqlite_connection.cursor()
+    result = cursor.execute("""SELECT * FROM SPB_Sights WHERE id = ?""", (walker_id,)).fetchall()
+    return result
+
+
 async def on_startup(_):
     print("Я был запущен")
 
@@ -250,7 +257,63 @@ async def saint_city(callback: types.CallbackQuery):
 # Колбек питера (у прогулки)
 @dp.callback_query_handler(text="saint")
 async def saint_city(callback: types.CallbackQuery):
-    await callback.answer("Мы ссовсем скоро реализуем эту функцию")
+    global id_walk, index_pos_walk
+    random.shuffle(id_walk)
+    place_from_bd = all_for_walk_SPB(id_walk[index_pos_walk])
+    capt = f"""<b>{place_from_bd[0][1]}</b>
+    {place_from_bd[0][2]}
+    Подробнее: {place_from_bd[0][6]}"""
+    await bot.send_photo(chat_id=callback.from_user.id,
+                         photo=place_from_bd[0][5],
+                         caption=capt,
+                         parse_mode="HTML",
+                         reply_markup=ikb_sights_SPB)
+    await callback.message.delete()
+
+
+# Колбек СПБ на нажатие back_sight_SPB
+@dp.callback_query_handler(text="back_sight_SPB")
+async def mos_back_sight(callback: types.CallbackQuery):
+    global id_walk, index_pos_walk
+    if index_pos_walk - 1 >= 0:
+        index_pos_walk -= 1
+        place_from_bd = all_for_walk_SPB(id_walk[index_pos_walk])
+        capt = f"""<b>{place_from_bd[0][1]}</b>
+    {place_from_bd[0][2]}
+    Подробнее: {place_from_bd[0][6]}"""
+        file = InputMedia(media=place_from_bd[0][5], caption=capt, parse_mode="HTML")
+        await callback.message.edit_media(file, reply_markup=ikb_sights_SPB)
+    else:
+        await callback.answer("Это первое место в нашей подборке")
+
+
+# Колбек СПБ на нажатие forward_sight_SPB
+@dp.callback_query_handler(text="forward_sight_SPB")
+async def mos_forward_sight(callback: types.CallbackQuery):
+    global id_walk, index_pos_walk
+    if index_pos_walk + 1 <= 16:
+        index_pos_walk += 1
+        place_from_bd = all_for_walk_SPB(id_walk[index_pos_walk])
+        capt = f"""<b>{place_from_bd[0][1]}</b>
+    {place_from_bd[0][2]}
+    Подробнее: {place_from_bd[0][6]}"""
+        file = InputMedia(media=place_from_bd[0][5], caption=capt, parse_mode="HTML")
+        await callback.message.edit_media(file, reply_markup=ikb_sights_SPB)
+    else:
+        await callback.answer("Это последнее место в нашей подборке")
+
+
+# Колбек геопозиции SPB
+@dp.callback_query_handler(text="geo_SPB")
+async def geoposition_SPB(callback: types.CallbackQuery):
+    global fl
+    place_from_bd = all_for_walk_SPB(id_walk[index_pos_walk])
+    lat = place_from_bd[0][3]
+    long = place_from_bd[0][4]
+    await bot.send_location(chat_id=callback.from_user.id,
+                            latitude=lat,
+                            longitude=long,
+                            reply_markup=ikb_rem)
 
 
 # Колбек комплимента для мужчины
