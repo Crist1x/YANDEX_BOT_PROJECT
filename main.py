@@ -184,8 +184,8 @@ async def help_func(message: types.Message):
 @dp.message_handler(commands=["start"])
 async def start_func(message: types.Message):
     await bot.send_message(chat_id=message.from_user.id,
-                           text="Приветствую! Если ты попал в нашего бота, значит ты очень\
-                                 хочешь порадовать свою половинку. Не переживай, мы поможем тебе в этом😊",
+                           text=f"Приветствую! \nЕсли ты попал в нашего бота, значит ты очень хочешь порадовать "
+                                f"свою половинку. Не переживай, мы поможем тебе в этом😊",
                            reply_markup=kb_main)
     await bot.send_sticker(chat_id=message.from_user.id,
                            sticker=GREETING_STICKER)
