@@ -1,5 +1,3 @@
-import random
-
 from data.imports import *
 
 bot = Bot(TOKEN_API)
@@ -9,12 +7,12 @@ male_zodiak = ""
 female_zodiak = ""
 id_walk = [a for a in range(1, 18)]
 index_pos_walk = 0
-fl = 0
+id_f = 0
 
 
 # Генерация текста товара
-def tovar_generator(tovar_pos):
-    data = requests.get(STUFF[tovar_pos][0], headers=HEADERS).json()
+def tovar_generator(position):
+    data = requests.get(STUFF[position][0], headers=HEADERS).json()
     with open('db/stuff_info.json', 'w', encoding='UTF-8') as file:
         json.dump(data, file, indent=2, ensure_ascii=False)
 
@@ -84,12 +82,35 @@ def all_for_walk(walker_id):
     return result
 
 
-def all_for_walk_SPB(walker_id):
+def all_for_walk_spb(walker_id):
     sqlite_connection = sqlite3.connect('db/database.db')
     cursor = sqlite_connection.cursor()
     result = cursor.execute("""SELECT * FROM SPB_Sights WHERE id = ?""", (walker_id,)).fetchall()
     return result
 
+
+def film_generator(film_id):
+    data = requests.get("https://www.kp.ru/afisha/msk/obzory/kino/luchshie-filmy-pro-lyubov/", headers=HEADERS).content.decode("utf-8")
+    soup = bs(data, "html.parser")
+    all_params = []
+    names = []
+    descript = []
+    for ul in soup.find('div', class_="event_content-area").find_all("ul"):
+        for li in bs(str(ul), "html.parser").find_all("li"):
+            all_params.append(li.text)
+    for name in soup.find_all("h3", class_="wp-block-heading"):
+        names.append(name.text.split(". ")[1].replace("«", "").replace("»", ""))
+    for des1 in soup.find("div", class_="event_content-area").find_all("p"):
+        descript.append(des1.text)
+
+    total = f"""Название: <b>{names[film_id]}</b>
+{all_params[film_id + film_id * 2]}
+{all_params[film_id + film_id * 2 + 1]}
+{all_params[film_id + film_id * 2 + 2]}
+{descript[film_id]}
+"""
+    print(total)
+    return total
 
 async def on_startup(_):
     print("Я был запущен")
@@ -130,6 +151,17 @@ async def surp_func(message: types.Message):
                          caption=tovar,
                          parse_mode="HTML",
                          reply_markup=ikb_tovars)
+
+
+# Кнопка Фильмы
+@dp.message_handler(Text(equals="🍿 Фильмы 🎥"))
+async def films_func(message: types.Message):
+    global id_f
+    id_f = 0
+    await bot.send_message(chat_id=message.from_user.id,
+                           text=film_generator(id_f),
+                           parse_mode="HTML",
+                           reply_markup=ikb_films)
 
 
 # Кнопка Описание
@@ -239,7 +271,6 @@ async def mos_forward_sight(callback: types.CallbackQuery):
 # Колбек геопозиции
 @dp.callback_query_handler(text="geo")
 async def geoposition(callback: types.CallbackQuery):
-    global fl
     place_from_bd = all_for_walk(id_walk[index_pos_walk])
     lat = place_from_bd[0][3]
     long = place_from_bd[0][4]
@@ -249,6 +280,7 @@ async def geoposition(callback: types.CallbackQuery):
                             reply_markup=ikb_rem)
 
 
+# Удаление геолокации
 @dp.callback_query_handler(text="rem")
 async def saint_city(callback: types.CallbackQuery):
     await callback.message.delete()
@@ -259,7 +291,7 @@ async def saint_city(callback: types.CallbackQuery):
 async def saint_city(callback: types.CallbackQuery):
     global id_walk, index_pos_walk
     random.shuffle(id_walk)
-    place_from_bd = all_for_walk_SPB(id_walk[index_pos_walk])
+    place_from_bd = all_for_walk_spb(id_walk[index_pos_walk])
     capt = f"""<b>{place_from_bd[0][1]}</b>
     {place_from_bd[0][2]}
     Подробнее: {place_from_bd[0][6]}"""
@@ -277,7 +309,7 @@ async def mos_back_sight(callback: types.CallbackQuery):
     global id_walk, index_pos_walk
     if index_pos_walk - 1 >= 0:
         index_pos_walk -= 1
-        place_from_bd = all_for_walk_SPB(id_walk[index_pos_walk])
+        place_from_bd = all_for_walk_spb(id_walk[index_pos_walk])
         capt = f"""<b>{place_from_bd[0][1]}</b>
     {place_from_bd[0][2]}
     Подробнее: {place_from_bd[0][6]}"""
@@ -293,7 +325,7 @@ async def mos_forward_sight(callback: types.CallbackQuery):
     global id_walk, index_pos_walk
     if index_pos_walk + 1 <= 16:
         index_pos_walk += 1
-        place_from_bd = all_for_walk_SPB(id_walk[index_pos_walk])
+        place_from_bd = all_for_walk_spb(id_walk[index_pos_walk])
         capt = f"""<b>{place_from_bd[0][1]}</b>
     {place_from_bd[0][2]}
     Подробнее: {place_from_bd[0][6]}"""
@@ -305,9 +337,8 @@ async def mos_forward_sight(callback: types.CallbackQuery):
 
 # Колбек геопозиции SPB
 @dp.callback_query_handler(text="geo_SPB")
-async def geoposition_SPB(callback: types.CallbackQuery):
-    global fl
-    place_from_bd = all_for_walk_SPB(id_walk[index_pos_walk])
+async def geoposition_spb(callback: types.CallbackQuery):
+    place_from_bd = all_for_walk_spb(id_walk[index_pos_walk])
     lat = place_from_bd[0][3]
     long = place_from_bd[0][4]
     await bot.send_location(chat_id=callback.from_user.id,
@@ -335,14 +366,16 @@ async def saint_city(callback: types.CallbackQuery):
 # Колбек мужского пола (совместимость)
 @dp.callback_query_handler(text="male")
 async def male_func(callback: types.CallbackQuery):
-    await callback.answer("Напишите ваш знак зодиака")
+    await bot.send_message(chat_id=callback.from_user.id,
+                           text="Напишите ваш знак зодиака")
     await Male.male.set()
 
 
 # Колбек женского пола (совместимость)
 @dp.callback_query_handler(text="female")
 async def female_func(callback: types.CallbackQuery):
-    await callback.answer("Напишите ваш знак зодиака")
+    await bot.send_message(chat_id=callback.from_user.id,
+                           text="Напишите ваш знак зодиака")
     await Female.fem.set()
 
 

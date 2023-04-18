@@ -8,7 +8,8 @@ b3 = KeyboardButton("🎁 Сюрприз 🎁")
 b4 = KeyboardButton("🚗 Прогулка 🚗")
 b5 = KeyboardButton("♐️ Совместимость ♌️")
 b6 = KeyboardButton("💌 Комплимент 🎀")
-kb_main.add(b1, b2).add(b3, b4).add(b5, b6)
+b7 = KeyboardButton("🍿 Фильмы 🎥")
+kb_main.add(b1, b2).add(b3, b4).add(b5, b6).add(b7)
 
 
 ikb_tovars = InlineKeyboardMarkup(inline_keyboard=[
@@ -38,4 +39,8 @@ ikb_komp = InlineKeyboardMarkup(inline_keyboard=[
 
 ikb_rem = InlineKeyboardMarkup(inline_keyboard=[
     [InlineKeyboardButton("❌Удалить Сообщение❌", callback_data="rem")]
+])
+
+ikb_films = InlineKeyboardMarkup(inline_keyboard=[
+    [InlineKeyboardButton("⏪", callback_data="prev"), InlineKeyboardButton("⏩", callback_data="next")]
 ])
