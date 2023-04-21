@@ -95,6 +95,7 @@ def film_generator(film_id):
     all_params = []
     names = []
     descript = []
+    links = []
     for ul in soup.find('div', class_="event_content-area").find_all("ul"):
         for li in bs(str(ul), "html.parser").find_all("li"):
             all_params.append(li.text)
@@ -102,15 +103,25 @@ def film_generator(film_id):
         names.append(name.text.split(". ")[1].replace("«", "").replace("»", ""))
     for des1 in soup.find("div", class_="event_content-area").find_all("p"):
         descript.append(des1.text)
+    for link in soup.find_all("div", class_="wp-block-embed__wrapper"):
+        for yt in bs(str(link), "html.parser").find_all("iframe"):
+            links.append(str(yt).split("src=\"")[1].split("\"")[0])
+    a = []
+    for x in links:
+        if x not in a:
+            a.append(x)
 
-    total = f"""Название: <b>{names[film_id]}</b>
-{all_params[film_id + film_id * 2]}
-{all_params[film_id + film_id * 2 + 1]}
-{all_params[film_id + film_id * 2 + 2]}
-{descript[film_id]}
+    links = a
+
+    total = f"""<b>Название:</b> {names[film_id]}    
+<b>{all_params[film_id + film_id * 2].split(":")[0]}:</b> {all_params[film_id + film_id * 2].split(":")[1]}
+<b>{all_params[film_id + film_id * 2 + 1].split(":")[0]}:</b> {all_params[film_id + film_id * 2 + 1].split(":")[1]}
+<b>{all_params[film_id + film_id * 2 + 2].split(":")[0]}:</b> {all_params[film_id + film_id * 2 + 2].split(":")[1]}
+<b>Описание:</b> {descript[film_id]}
+<b>Трейлер:</b> {links[film_id]}
 """
-    print(total)
     return total
+
 
 async def on_startup(_):
     print("Я был запущен")
@@ -377,6 +388,32 @@ async def female_func(callback: types.CallbackQuery):
     await bot.send_message(chat_id=callback.from_user.id,
                            text="Напишите ваш знак зодиака")
     await Female.fem.set()
+
+
+# Колбек назад фильмы
+@dp.callback_query_handler(text="prev")
+async def prev_film_func(callback: types.CallbackQuery):
+    global id_f
+    if id_f != 0:
+        id_f -= 1
+        await callback.message.edit_text(text=film_generator(id_f),
+                                         parse_mode="HTML",
+                                         reply_markup=ikb_films)
+    else:
+        await callback.answer("Это первый фильм в нашем списке")
+
+
+# Колбек вперед фильмы
+@dp.callback_query_handler(text="next")
+async def next_film_func(callback: types.CallbackQuery):
+    global id_f
+    if id_f != 29:
+        id_f += 1
+        await callback.message.edit_text(text=film_generator(id_f),
+                                         parse_mode="HTML",
+                                         reply_markup=ikb_films)
+    else:
+        await callback.answer("Это послледний фильм в нашем списке")
 
 
 # Обработчик машины состояний
