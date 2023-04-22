@@ -460,5 +460,231 @@ async def get_address(message: types.Message, state: FSMContext):
     await state.finish()
 
 
+@dp.message_handler()
+async def start_func(message: types.Message):
+    if 'день' in message.text.lower() or 'число' in message.text.lower() \
+            or 'сегодня' in message.text.lower() or 'недел' in message.text.lower():
+        date_today = dt.datetime.now().strftime('%A %d-%B-%Y')
+        now_time = dt.datetime.now().time()
+        # зима выходной день разное время
+        if ('Sunday' in date_today or 'Saturday' in date_today) and \
+                ('December' in date_today or 'January' in date_today or 'February' in date_today) and \
+                (dt.time(6) >= now_time >= dt.time(0)):
+            await bot.send_message(chat_id=message.from_user.id,
+                                   text=f"Зимняя выходная ночь \n {dt.datetime.now().strftime('%A %d-%B-%Y')}",
+                                   )
+        elif ('Sunday' in date_today or 'Saturday' in date_today) and \
+                ('December' in date_today or 'January' in date_today or 'February' in date_today) and \
+                (dt.time(6) <= now_time <= dt.time(12)):
+            await bot.send_message(chat_id=message.from_user.id,
+                                   text=f"Зимнее выходное утро \n {dt.datetime.now().strftime('%A %d-%B-%Y')}",
+                                   )
+        elif ('Sunday' in date_today or 'Saturday' in date_today) and \
+                ('December' in date_today or 'January' in date_today or 'February' in date_today) and \
+                (dt.time(12) <= now_time <= dt.time(18)):
+            await bot.send_message(chat_id=message.from_user.id,
+                                   text=f"Зимний выходной день \n {dt.datetime.now().strftime('%A %d-%B-%Y')}",
+                                   )
+        elif ('Sunday' in date_today or 'Saturday' in date_today) and \
+                ('December' in date_today or 'January' in date_today or 'February' in date_today) and \
+                (dt.time(18) <= now_time <= dt.time(23, 59)):
+            await bot.send_message(chat_id=message.from_user.id,
+                                   text=f"Зимний выходной вечер  \n {dt.datetime.now().strftime('%A %d-%B-%Y')}",
+                                   )
+        # лето выходной день разное время
+        elif ('Sunday' in date_today or 'Saturday' in date_today) and \
+                ('July' in date_today or 'June' in date_today or 'August' in date_today) and \
+                (dt.time(6) >= now_time >= dt.time(0)):
+            await bot.send_message(chat_id=message.from_user.id,
+                                   text=f"Летняя выходная ночь \n {dt.datetime.now().strftime('%A %d-%B-%Y')}",
+                                   )
+        elif ('Sunday' in date_today or 'Saturday' in date_today) and \
+                ('July' in date_today or 'June' in date_today or 'August' in date_today) and \
+                (dt.time(6) <= now_time <= dt.time(12)):
+            await bot.send_message(chat_id=message.from_user.id,
+                                   text=f"Летнее выходное утро \n {dt.datetime.now().strftime('%A %d-%B-%Y')}",
+                                   )
+        elif ('Sunday' in date_today or 'Saturday' in date_today) and \
+                ('July' in date_today or 'June' in date_today or 'August' in date_today) and \
+                (dt.time(12) <= now_time <= dt.time(18)):
+            await bot.send_message(chat_id=message.from_user.id,
+                                   text=f"Летний выходной день \n {dt.datetime.now().strftime('%A %d-%B-%Y')}",
+                                   )
+        elif ('Sunday' in date_today or 'Saturday' in date_today) and \
+                ('July' in date_today or 'June' in date_today or 'August' in date_today) and \
+                (dt.time(18) <= now_time <= dt.time(23, 59)):
+            await bot.send_message(chat_id=message.from_user.id,
+                                   text=f"Летний выходной вечер  \n {dt.datetime.now().strftime('%A %d-%B-%Y')}",
+                                   )
+        # весна выходной день разное время
+        elif ('Sunday' in date_today or 'Saturday' in date_today) and \
+             ('May' in date_today or 'March' in date_today or 'April' in date_today) and \
+             (dt.time(6) >= now_time >= dt.time(0)):
+            await bot.send_message(chat_id=message.from_user.id,
+                                   text=f"Весенняя выходная ночь \n {dt.datetime.now().strftime('%A %d-%B-%Y')}",
+                                   )
+        elif ('Sunday' in date_today or 'Saturday' in date_today) and \
+                ('May' in date_today or 'March' in date_today or 'April' in date_today) and \
+                (dt.time(6) <= now_time <= dt.time(12)):
+            await bot.send_message(chat_id=message.from_user.id,
+                                   text=f"Весеннее выходное утро \n {dt.datetime.now().strftime('%A %d-%B-%Y')}",
+                                   )
+        elif ('Sunday' in date_today or 'Saturday' in date_today) and \
+                ('May' in date_today or 'March' in date_today or 'April' in date_today) and \
+                (dt.time(12) <= now_time <= dt.time(18)):
+            await bot.send_message(chat_id=message.from_user.id,
+                                   text=f"Весенний выходной день \n {dt.datetime.now().strftime('%A %d-%B-%Y')}",
+                                   )
+        elif ('Sunday' in date_today or 'Saturday' in date_today) and \
+                ('May' in date_today or 'March' in date_today or 'April' in date_today) and \
+                (dt.time(18) <= now_time <= dt.time(23, 59)):
+            await bot.send_message(chat_id=message.from_user.id,
+                                   text=f"Весенний выходной вечер  \n {dt.datetime.now().strftime('%A %d-%B-%Y')}",
+                                   )
+        # осень выходной день разное время
+        elif ('Sunday' in date_today or 'Saturday' in date_today) and \
+             ('September' in date_today or 'October' in date_today or 'November' in date_today) and \
+             (dt.time(6) >= now_time >= dt.time(0)):
+            await bot.send_message(chat_id=message.from_user.id,
+                                   text=f"Осенняя выходная ночь \n {dt.datetime.now().strftime('%A %d-%B-%Y')}",
+                                   )
+        elif ('Sunday' in date_today or 'Saturday' in date_today) and \
+                ('September' in date_today or 'October' in date_today or 'November' in date_today) and \
+                (dt.time(6) <= now_time <= dt.time(12)):
+            await bot.send_message(chat_id=message.from_user.id,
+                                   text=f"Осеннее выходное утро \n {dt.datetime.now().strftime('%A %d-%B-%Y')}",
+                                   )
+        elif ('Sunday' in date_today or 'Saturday' in date_today) and \
+                ('September' in date_today or 'October' in date_today or 'November' in date_today) and \
+                (dt.time(12) <= now_time <= dt.time(18)):
+            await bot.send_message(chat_id=message.from_user.id,
+                                   text=f"Осенний выходной день \n {dt.datetime.now().strftime('%A %d-%B-%Y')}",
+                                   )
+        elif ('Sunday' in date_today or 'Saturday' in date_today) and \
+                ('September' in date_today or 'October' in date_today or 'November' in date_today) and \
+                (dt.time(18) <= now_time <= dt.time(23, 59)):
+            await bot.send_message(chat_id=message.from_user.id,
+                                   text=f"Осенний выходной вечер  \n {dt.datetime.now().strftime('%A %d-%B-%Y')}",
+                                   )
+        # зима будний день разное время
+        elif ('Sunday' not in date_today or 'Saturday' not in date_today) and \
+                ('December' in date_today or 'January' in date_today or 'February' in date_today) and \
+                (dt.time(6) >= now_time >= dt.time(0)):
+            await bot.send_message(chat_id=message.from_user.id,
+                                   text=f"Зимняя будняя ночь  \n {dt.datetime.now().strftime('%A %d-%B-%Y')}",
+                                   )
+        elif ('Sunday' not in date_today or 'Saturday' not in date_today) and \
+                ('December' in date_today or 'January' in date_today or 'February' in date_today) and \
+                (dt.time(6) <= now_time <= dt.time(12)):
+            await bot.send_message(chat_id=message.from_user.id,
+                                   text=f"Зимнее буднее утро \n {dt.datetime.now().strftime('%A %d-%B-%Y')}",
+                                   )
+        elif ('Sunday' not in date_today or 'Saturday' not in date_today) and \
+                ('December' in date_today or 'January' in date_today or 'February' in date_today) and \
+                (dt.time(12) <= now_time <= dt.time(18)):
+            await bot.send_message(chat_id=message.from_user.id,
+                                   text=f"Зимний будний день  \n {dt.datetime.now().strftime('%A %d-%B-%Y')}",
+                                   )
+        elif ('Sunday' not in date_today or 'Saturday' not in date_today) and \
+                ('December' in date_today or 'January' in date_today or 'February' in date_today) and \
+                (dt.time(18) <= now_time <= dt.time(23, 59)):
+            await bot.send_message(chat_id=message.from_user.id,
+                                   text=f"Зимний будний вечер  \n {dt.datetime.now().strftime('%A %d-%B-%Y')}",
+                                   )
+        # лето будний день разное время
+        elif ('Sunday' not in date_today or 'Saturday' not in date_today) and \
+                ('July' in date_today or 'June' in date_today or 'August' in date_today) and \
+                (dt.time(6) >= now_time >= dt.time(0)):
+            await bot.send_message(chat_id=message.from_user.id,
+                                   text=f"Летняя будняя ночь  \n {dt.datetime.now().strftime('%A %d-%B-%Y')}",
+                                   )
+        elif ('Sunday' not in date_today or 'Saturday' not in date_today) and \
+                ('July' in date_today or 'June' in date_today or 'August' in date_today) and \
+                (dt.time(6) <= now_time <= dt.time(12)):
+            await bot.send_message(chat_id=message.from_user.id,
+                                   text=f"Летнее буднее утро  \n {dt.datetime.now().strftime('%A %d-%B-%Y')}",
+                                   )
+        elif ('Sunday' not in date_today or 'Saturday' not in date_today) and \
+                ('July' in date_today or 'June' in date_today or 'August' in date_today) and \
+                (dt.time(12) <= now_time <= dt.time(18)):
+            await bot.send_message(chat_id=message.from_user.id,
+                                   text=f"Летний будний день  \n {dt.datetime.now().strftime('%A %d-%B-%Y')}",
+                                   )
+        elif ('Sunday' not in date_today or 'Saturday' not in date_today) and \
+                ('July' in date_today or 'June' in date_today or 'August' in date_today) and \
+                (dt.time(18) <= now_time <= dt.time(23, 59)):
+            await bot.send_message(chat_id=message.from_user.id,
+                                   text=f"Летний будний вечер  \n {dt.datetime.now().strftime('%A %d-%B-%Y')}",
+                                   )
+        # весна будний день разное время
+        elif ('Sunday' not in date_today or 'Saturday' not in date_today) and \
+                ('May' in date_today or 'March' in date_today or 'April' in date_today) and \
+                (dt.time(6) >= now_time >= dt.time(0)):
+            await bot.send_message(chat_id=message.from_user.id,
+                                   text=f"Весенняя будняя ночь  \n {dt.datetime.now().strftime('%A %d-%B-%Y')}",
+                                   )
+        elif ('Sunday' not in date_today or 'Saturday' not in date_today) and \
+                ('May' in date_today or 'March' in date_today or 'April' in date_today) and \
+                (dt.time(6) <= now_time <= dt.time(12)):
+            await bot.send_message(chat_id=message.from_user.id,
+                                   text=f"Весеннее буднее утро  \n {dt.datetime.now().strftime('%A %d-%B-%Y')}",
+                                   )
+        elif ('Sunday' not in date_today or 'Saturday' not in date_today) and \
+                ('May' in date_today or 'March' in date_today or 'April' in date_today) and \
+                (dt.time(12) <= now_time <= dt.time(18)):
+            await bot.send_message(chat_id=message.from_user.id,
+                                   text=f"Весенний будний день \n {dt.datetime.now().strftime('%A %d-%B-%Y')}",
+                                   )
+        elif ('Sunday' not in date_today or 'Saturday' not in date_today) and \
+                ('May' in date_today or 'March' in date_today or 'April' in date_today) and \
+                (dt.time(18) <= now_time <= dt.time(23, 59)):
+            await bot.send_message(chat_id=message.from_user.id,
+                                   text=f"Весенний будний вечер  \n {dt.datetime.now().strftime('%A %d-%B-%Y')}",
+                                   )
+        # осень будний день разное время
+        elif ('Sunday' not in date_today or 'Saturday' not in date_today) and \
+                ('September' in date_today or 'October' in date_today or 'November' in date_today) and \
+                (dt.time(6) >= now_time >= dt.time(0)):
+            await bot.send_message(chat_id=message.from_user.id,
+                                   text=f"Осенняя будняя ночь \n {dt.datetime.now().strftime('%A %d-%B-%Y')}",
+                                   )
+        elif ('Sunday' not in date_today or 'Saturday' not in date_today) and \
+                ('September' in date_today or 'October' in date_today or 'November' in date_today) and \
+                (dt.time(6) <= now_time <= dt.time(12)):
+            await bot.send_message(chat_id=message.from_user.id,
+                                   text=f"Осеннее буднее утро \n {dt.datetime.now().strftime('%A %d-%B-%Y')}",
+                                   )
+        elif ('Sunday' not in date_today or 'Saturday' not in date_today) and \
+                ('September' in date_today or 'October' in date_today or 'November' in date_today) and \
+                (dt.time(12) <= now_time <= dt.time(18)):
+            await bot.send_message(chat_id=message.from_user.id,
+                                   text=f"Осенний будний день \n {dt.datetime.now().strftime('%A %d-%B-%Y')}",
+                                   )
+        elif ('Sunday' not in date_today or 'Saturday' not in date_today) and \
+                ('September' in date_today or 'October' in date_today or 'November' in date_today) and \
+                (dt.time(18) <= now_time <= dt.time(23, 59)):
+            await bot.send_message(chat_id=message.from_user.id,
+                                   text=f"Осенний будний вечер  \n {dt.datetime.now().strftime('%A %d-%B-%Y')}",
+                                   )
+
+    elif 'не' in message.text.lower():
+        await bot.send_message(chat_id=message.from_user.id,
+                               text=f"Мы ничего не поняли, попробуйте еще раз.",
+                               )
+    elif 'хорош' in message.text.lower():
+        await bot.send_message(chat_id=message.from_user.id,
+                               text=f"Мы рады за Вас! Всё что хорошо, никогда не бывает плохо.",
+                               )
+    elif 'плох' in message.text.lower():
+        await bot.send_message(chat_id=message.from_user.id,
+                               text=f"Всё что может быть плохо, еще может привести к чему-то хорошему."
+                                    f" Не опускайте руки и всё будет отлично!",
+                               )
+
+    else:
+        await bot.send_message(chat_id=message.from_user.id,
+                               text=f"Мы ничего не поняли, попробуйте еще раз.",
+                               reply_markup=kb_main)
+
 if __name__ == "__main__":
     executor.start_polling(dp, skip_updates=True, on_startup=on_startup)
