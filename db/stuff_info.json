@@ -8,88 +8,79 @@
   "data": {
     "products": [
       {
-        "id": 43007173,
-        "root": 32070659,
+        "id": 136544885,
+        "root": 117007498,
         "kindId": 0,
-        "subjectId": 556,
-        "subjectParentId": 49,
-        "name": "Зубные щетки парные для влюбленных 2 шт",
-        "brand": "PollYus",
-        "brandId": 255697,
-        "siteBrandId": 265697,
-        "supplierId": 96929,
-        "sale": 59,
-        "priceU": 64200,
-        "salePriceU": 26300,
+        "subjectId": 264,
+        "subjectParentId": 257,
+        "name": "Гирлянда растяжка на 14 февраля, картонная интерьерная",
+        "brand": "ТМ Открытая планета",
+        "brandId": 67662,
+        "siteBrandId": 77662,
+        "supplierId": 55596,
+        "sale": 40,
+        "priceU": 51900,
+        "salePriceU": 31100,
         "logisticsCost": 0,
         "extended": {
-          "basicSale": 59,
-          "basicPriceU": 26300
+          "basicSale": 40,
+          "basicPriceU": 31100
         },
         "saleConditions": 0,
-        "pics": 2,
+        "pics": 7,
         "rating": 5,
-        "feedbacks": 884,
-        "volume": 5,
+        "feedbacks": 10,
+        "volume": 3,
         "colors": [
           {
-            "name": "белый",
-            "id": 16777215
+            "name": "красный",
+            "id": 16711680
+          },
+          {
+            "name": "розовый",
+            "id": 16761035
           }
         ],
         "promotions": [
           63484,
-          96213,
+          114151,
           121474,
-          123496,
+          128385,
+          129558,
           134120,
           137206,
-          139114,
-          155859,
-          157965
+          139114
         ],
         "sizes": [
           {
             "name": "",
             "origName": "0",
             "rank": 0,
-            "optionId": 85866746,
+            "optionId": 232970828,
             "stocks": [
               {
-                "wh": 507,
-                "qty": 549,
-                "time1": 5,
-                "time2": 21
-              },
-              {
-                "wh": 117986,
-                "qty": 65,
+                "wh": 120762,
+                "qty": 278,
                 "time1": 4,
-                "time2": 46
+                "time2": 32
               },
               {
                 "wh": 130744,
-                "qty": 60,
+                "qty": 1,
                 "time1": 4,
                 "time2": 54
-              },
-              {
-                "wh": 159402,
-                "qty": 58,
-                "time1": 3,
-                "time2": 44
               }
             ],
-            "time1": 5,
-            "time2": 21,
-            "wh": 507,
-            "sign": "e2o2seI3rAjmJt3VPMnr//FtOis="
+            "time1": 4,
+            "time2": 32,
+            "wh": 120762,
+            "sign": "D285slCtp0Mdt2qcmUKU/wRtDMk="
           }
         ],
         "diffPrice": false,
-        "time1": 5,
-        "time2": 21,
-        "wh": 507
+        "time1": 4,
+        "time2": 32,
+        "wh": 120762
       }
     ]
   }
