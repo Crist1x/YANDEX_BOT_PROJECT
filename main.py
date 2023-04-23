@@ -128,23 +128,23 @@ async def on_startup(_):
 
 
 # Кнопка Совместимость
-@dp.message_handler(Text(equals="♐️ Совместимость ♌️"))
+@dp.message_handler(Text(equals=["♐️ Совместимость ♌️", "совместимость", "Совместимость"]))
 async def progul_func(message: types.Message):
     await bot.send_message(chat_id=message.from_user.id,
                            text="Выберите ваш пол:",
                            reply_markup=ikb_sex)
 
 
-# Кнопка Прогулка
-@dp.message_handler(Text(equals="💌 Комплимент 🎀"))
-async def progul_func(message: types.Message):
+# Кнопка Комплимент
+@dp.message_handler(Text(equals=["💌 Комплимент 🎀", "комплимент", "Комплимент"]))
+async def compliment_func(message: types.Message):
     await bot.send_message(chat_id=message.from_user.id,
                            text="Выбери пол человека, для которого хотите получить комплимент🌹",
                            reply_markup=ikb_komp)
 
 
 # Кнопка Прогулка
-@dp.message_handler(Text(equals="🚗 Прогулка 🚗"))
+@dp.message_handler(Text(equals=["🚗 Прогулка 🚗", "прогулка", "Прогулка"]))
 async def progul_func(message: types.Message):
     await bot.send_message(chat_id=message.from_user.id,
                            text="Выбери город, в котором ты сейчас находишься🏢",
@@ -152,7 +152,7 @@ async def progul_func(message: types.Message):
 
 
 # Кнопка Сюрприз
-@dp.message_handler(Text(equals="🎁 Сюрприз 🎁"))
+@dp.message_handler(Text(equals=["🎁 Сюрприз 🎁", "сюрприз", "Сюрприз"]))
 async def surp_func(message: types.Message):
     global tovar_pos
     random.shuffle(STUFF)
@@ -165,7 +165,7 @@ async def surp_func(message: types.Message):
 
 
 # Кнопка Фильмы
-@dp.message_handler(Text(equals="🍿 Фильмы 🎥"))
+@dp.message_handler(Text(equals=["🍿 Фильмы 🎥", "фильмы", "Фильмы"]))
 async def films_func(message: types.Message):
     global id_f
     id_f = 0
@@ -176,7 +176,7 @@ async def films_func(message: types.Message):
 
 
 # Кнопка Описание
-@dp.message_handler(Text(equals="Описание"))
+@dp.message_handler(Text(equals=["Описание", "описание"]))
 async def desc_func(message: types.Message):
     await bot.send_message(chat_id=message.from_user.id,
                            text=DESCR,
@@ -184,7 +184,7 @@ async def desc_func(message: types.Message):
 
 
 # Кнопка Помощь
-@dp.message_handler(Text(equals="Помощь"))
+@dp.message_handler(Text(equals=["Помощь", "помощь"]))
 async def help_func(message: types.Message):
     await bot.send_message(chat_id=message.from_user.id,
                            text=HELP,
@@ -460,6 +460,7 @@ async def get_address(message: types.Message, state: FSMContext):
     await state.finish()
 
 
+# Общий обработчик сообщений
 @dp.message_handler()
 async def start_func(message: types.Message):
     if 'день' in message.text.lower() or 'число' in message.text.lower() \
