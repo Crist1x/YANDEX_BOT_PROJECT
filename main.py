@@ -690,15 +690,18 @@ async def start_func(message: types.Message):
                                )
     elif 'ужас' in message.text.lower():
         await bot.send_message(chat_id=message.from_user.id,
-                               text=f"Мы рады за Вас! Всё что хорошо, никогда не бывает плохо.",
+                               text=f"Всё что может быть плохо, еще может привести к чему-то хорошему."
+                                    f" Не опускайте руки и всё будет отлично!",
                                )
     elif 'кошмар' in message.text.lower():
         await bot.send_message(chat_id=message.from_user.id,
-                               text=f"Мы рады за Вас! Всё что хорошо, никогда не бывает плохо.",
+                               text=f"Всё что может быть плохо, еще может привести к чему-то хорошему."
+                                    f" Не опускайте руки и всё будет отлично!",
                                )
     elif 'отврат' in message.text.lower():
         await bot.send_message(chat_id=message.from_user.id,
-                               text=f"Мы рады за Вас! Всё что хорошо, никогда не бывает плохо.",
+                               text=f"Всё что может быть плохо, еще может привести к чему-то хорошему."
+                                    f" Не опускайте руки и всё будет отлично!",
                                )
     elif 'плох' in message.text.lower():
         await bot.send_message(chat_id=message.from_user.id,
