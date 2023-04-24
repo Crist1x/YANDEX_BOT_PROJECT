@@ -676,6 +676,30 @@ async def start_func(message: types.Message):
         await bot.send_message(chat_id=message.from_user.id,
                                text=f"Мы рады за Вас! Всё что хорошо, никогда не бывает плохо.",
                                )
+    elif 'крут' in message.text.lower():
+        await bot.send_message(chat_id=message.from_user.id,
+                               text=f"Мы рады за Вас! Всё что хорошо, никогда не бывает плохо.",
+                               )
+    elif 'отличн' in message.text.lower():
+        await bot.send_message(chat_id=message.from_user.id,
+                               text=f"Мы рады за Вас! Всё что хорошо, никогда не бывает плохо.",
+                               )
+    elif 'прекрасн' in message.text.lower():
+        await bot.send_message(chat_id=message.from_user.id,
+                               text=f"Мы рады за Вас! Всё что хорошо, никогда не бывает плохо.",
+                               )
+    elif 'ужас' in message.text.lower():
+        await bot.send_message(chat_id=message.from_user.id,
+                               text=f"Мы рады за Вас! Всё что хорошо, никогда не бывает плохо.",
+                               )
+    elif 'кошмар' in message.text.lower():
+        await bot.send_message(chat_id=message.from_user.id,
+                               text=f"Мы рады за Вас! Всё что хорошо, никогда не бывает плохо.",
+                               )
+    elif 'отврат' in message.text.lower():
+        await bot.send_message(chat_id=message.from_user.id,
+                               text=f"Мы рады за Вас! Всё что хорошо, никогда не бывает плохо.",
+                               )
     elif 'плох' in message.text.lower():
         await bot.send_message(chat_id=message.from_user.id,
                                text=f"Всё что может быть плохо, еще может привести к чему-то хорошему."
